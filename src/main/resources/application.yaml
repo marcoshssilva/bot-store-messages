@@ -14,6 +14,13 @@ eureka:
 management:
   server:
     port: 18080
+  endpoints:
+    web:
+      exposure:
+        include:
+          - health
+          - metrics
+          - info
 ---
 spring:
   config.activate.on-profile: localhost
