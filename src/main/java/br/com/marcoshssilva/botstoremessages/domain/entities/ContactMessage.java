@@ -1,5 +1,8 @@
 package br.com.marcoshssilva.botstoremessages.domain.entities;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.Objects;
 
 @lombok.Builder
@@ -7,8 +10,11 @@ import java.util.Objects;
 @lombok.NoArgsConstructor
 @lombok.Getter
 @lombok.Setter
+
+@Document(value = "contact_messages")
 public class ContactMessage {
 
+    @Id
     private String id;
     private String name;
     private String email;
