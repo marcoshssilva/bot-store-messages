@@ -21,6 +21,25 @@ management:
           - health
           - metrics
           - info
+  endpoint:
+    health:
+      group:
+        default:
+          show-components: always
+          show-details: always
+          include:
+            - diskSpace
+            - ping
+        database:
+          show-components: always
+          show-details: always
+          include:
+            - mongo
+        message-broker:
+          show-components: always
+          show-details: always
+          include:
+            - rabbit
 ---
 spring:
   config.activate.on-profile: localhost
