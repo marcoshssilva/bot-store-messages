@@ -2,6 +2,7 @@ package br.com.marcoshssilva.botstoremessages;
 
 import com.mongodb.BasicDBObjectBuilder;
 import com.mongodb.DBObject;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ class MongoDbIntegrationTests {
     @Autowired
     private MongoTemplate mongoTemplate;
 
+    @DisplayName("must connect on MongoDBEmbedded and store value and get it")
     @Test
     void test() {
         DBObject data = BasicDBObjectBuilder.start().add("data", "value").get();
