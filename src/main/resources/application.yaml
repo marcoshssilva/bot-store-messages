@@ -1,0 +1,27 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: bot-store-messages
+  config:
+    import: optional:configserver:${SPRING_CONFIG_SERVER_URI:http://127.0.0.1:8888}
+#  profiles:
+#    active: localhost
+eureka:
+  client:
+    service-url:
+      defaultZone: ${SPRING_EUREKA_SERVER_URI:http://127.0.0.1:8761/eureka}
+management:
+  server:
+    port: 18080
+---
+spring:
+  config.activate.on-profile: localhost
+  data:
+    mongodb:
+      host: 127.0.0.1
+      username: 'root'
+      password: 'root'
+      database: 'db_marcoshssilva_store_messages'
+      authentication-database: 'admin'
+      authentication-mechanism: 'SCRAM-SHA-1'
