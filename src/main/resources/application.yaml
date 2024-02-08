@@ -51,3 +51,9 @@ spring:
       database: 'db_marcoshssilva_store_messages'
       authentication-database: 'admin'
       authentication-mechanism: 'SCRAM-SHA-1'
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    virtual-host: /
+    username: guest
+    password: guest
