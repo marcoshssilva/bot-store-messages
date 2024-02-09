@@ -2,6 +2,7 @@ package br.com.marcoshssilva.botstoremessages.domain.repositories;
 
 import br.com.marcoshssilva.botstoremessages.domain.entities.ContactMessage;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,10 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.util.List;
 import java.util.Objects;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DataMongoTest
 @ExtendWith(SpringExtension.class)
@@ -22,6 +26,7 @@ class ContactMessageRepositoryTests {
 
     @DisplayName("must save list of ContactMessage and get then with generated IDs")
     @Test
+    @Order(1)
     void testSaveAllAndGet() {
         // Save
         final ContactMessage cm1 = ContactMessage.builder()
@@ -54,6 +59,7 @@ class ContactMessageRepositoryTests {
 
     @DisplayName("must save object of ContactMessage and delete it on database")
     @Test
+    @Order(2)
     void testSaveFindByIdDelete() {
         // Save
         ContactMessage savedMessage = repository.save(ContactMessage.builder()
@@ -78,6 +84,7 @@ class ContactMessageRepositoryTests {
 
     @DisplayName("must save object of ContactMessage and update it on database")
     @Test
+    @Order(3)
     void testUpdate() {
         // Save
         ContactMessage savedMessage = repository.save(ContactMessage.builder()
