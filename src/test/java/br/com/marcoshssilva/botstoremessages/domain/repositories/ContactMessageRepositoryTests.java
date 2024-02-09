@@ -49,6 +49,8 @@ class ContactMessageRepositoryTests {
 
         List<ContactMessage> contactMessages = List.of(cm1, cm2, cm3);
 
+        // force delete all to fix tests in CI
+        repository.deleteAll();
         repository.saveAll(contactMessages);
 
         // Find all
