@@ -10,6 +10,8 @@ spring:
 de.flapdoodle.mongodb.embedded.version: 4.0.2
 rabbit:
   enabled: ${SPRING_RABBIT_ENABLED:true}
+  queues:
+    register-contact-message: ${SPRING_RABBIT_QUEUE_REGISTER_CONTACT_MESSAGE:notify.contact-me}
 eureka:
   client:
     service-url:
