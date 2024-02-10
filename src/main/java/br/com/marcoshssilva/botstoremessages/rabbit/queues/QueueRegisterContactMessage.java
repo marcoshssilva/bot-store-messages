@@ -23,9 +23,10 @@ public class QueueRegisterContactMessage {
     private final IContactMessageService iContactMessageService;
 
     @RabbitListener(queues = {"${rabbit.queues.register-contact-message:notify.contact-me}"})
-    public void onReceiveMessage(@Payload RegisterContactMessageModel message) {
+    public void onReceiveMessage(@Payload Message message) {
         try {
-            final Optional<ContactMessageData> messageData = iContactMessageService.registerNewContactMessage(new ContactMessageNew(message.getName(), message.getEmail(), message.getMessage()));
+            final RegisterContactMessageModel messageModel = objectMapper.readValue(message.getBody(), RegisterContactMessageModel.class);
+            final Optional<ContactMessageData> messageData = iContactMessageService.registerNewContactMessage(new ContactMessageNew(messageModel.getName(), messageModel.getMail(), messageModel.getMessage()));
             messageData.ifPresent(contactMessageData -> log.info("Successfully registered new ContactMessage with ID {}", contactMessageData.id()));
         } catch (Exception e) {
             log.error("Fatal error on process message, MESSAGE_ERROR: {}, PAYLOAD: [{}]", e.getMessage(), message);
