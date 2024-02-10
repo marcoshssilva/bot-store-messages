@@ -8,6 +8,8 @@ spring:
 #  profiles:
 #    active: localhost
 de.flapdoodle.mongodb.embedded.version: 4.0.2
+rabbit:
+  enabled: ${SPRING_RABBIT_ENABLED:true}
 eureka:
   client:
     service-url:
