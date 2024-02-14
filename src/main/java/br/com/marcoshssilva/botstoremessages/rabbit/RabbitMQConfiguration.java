@@ -3,8 +3,8 @@ package br.com.marcoshssilva.botstoremessages.rabbit;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
+import org.springframework.amqp.support.converter.SimpleMessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -19,10 +19,10 @@ public class RabbitMQConfiguration {
      * @return org.springframework.amqp.core.RabbitTemplate.class
      */
     @Bean
-    public AmqpTemplate amqpTemplate(ConnectionFactory connectionFactory) {
+    public AmqpTemplate amqpTemplate(ConnectionFactory connectionFactory, MessageConverter converter) {
         RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
         // config to send any payload as Json, when producer mode
-        rabbitTemplate.setMessageConverter(converter());
+        rabbitTemplate.setMessageConverter(converter);
         return rabbitTemplate;
     }
 
@@ -32,7 +32,7 @@ public class RabbitMQConfiguration {
      */
     @Bean
     public MessageConverter converter() {
-        return new Jackson2JsonMessageConverter();
+        return new SimpleMessageConverter();
     }
 
 }
