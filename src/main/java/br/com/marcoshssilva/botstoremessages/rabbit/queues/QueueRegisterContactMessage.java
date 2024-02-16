@@ -1,8 +1,11 @@
 package br.com.marcoshssilva.botstoremessages.rabbit.queues;
 
 import br.com.marcoshssilva.botstoremessages.domain.services.IContactMessageService;
+import br.com.marcoshssilva.botstoremessages.domain.services.IRegisterQueueErrorService;
+import br.com.marcoshssilva.botstoremessages.domain.services.exceptions.RegisterQueueErrorCannotBeCreatedException;
 import br.com.marcoshssilva.botstoremessages.domain.services.models.ContactMessageData;
 import br.com.marcoshssilva.botstoremessages.domain.services.models.ContactMessageNew;
+import br.com.marcoshssilva.botstoremessages.domain.services.models.RegisteredQueueErrorNew;
 import br.com.marcoshssilva.botstoremessages.rabbit.models.RegisterContactMessageModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.amqp.core.Message;
@@ -20,15 +23,17 @@ import java.util.Optional;
 public class QueueRegisterContactMessage {
     private final ObjectMapper objectMapper;
     private final IContactMessageService iContactMessageService;
+    private final IRegisterQueueErrorService iRegisterQueueErrorService;
 
     @RabbitListener(queues = {"${rabbit.queues.register-contact-message:notify.contact-me}"})
-    public void onReceiveMessage(@Payload Message message) {
+    public void onReceiveMessage(@Payload Message message) throws RegisterQueueErrorCannotBeCreatedException {
         try {
             final RegisterContactMessageModel messageModel = objectMapper.readValue(message.getBody(), RegisterContactMessageModel.class);
             final Optional<ContactMessageData> messageData = iContactMessageService.registerNewContactMessage(new ContactMessageNew(messageModel.getName(), messageModel.getMail(), messageModel.getMessage()));
             messageData.ifPresent(contactMessageData -> log.info("Successfully registered new ContactMessage with ID {}", contactMessageData.id()));
         } catch (Exception e) {
             log.error("Fatal error on process message, MESSAGE_ERROR: {}, PAYLOAD: [{}]", e.getMessage(), message);
+            iRegisterQueueErrorService.registerQueueError(new RegisteredQueueErrorNew(e.getMessage(), message.getBody()));
         }
 
     }
