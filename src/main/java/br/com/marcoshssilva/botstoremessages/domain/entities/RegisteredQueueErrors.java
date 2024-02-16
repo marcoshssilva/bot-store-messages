@@ -12,7 +12,7 @@ import java.util.Objects;
 @lombok.Getter
 @lombok.Setter
 
-@Document(value = "contact_messages")
+@Document(value = "registered_queues_errors")
 public class RegisteredQueueErrors {
     @Id
     private String id;
