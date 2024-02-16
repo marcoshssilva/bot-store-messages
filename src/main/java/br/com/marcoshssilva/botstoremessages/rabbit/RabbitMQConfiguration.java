@@ -27,8 +27,8 @@ public class RabbitMQConfiguration {
     }
 
     /**
-     * Get instance to convert payload received by queue as JSON
-     * @return org.springframework.amqp.support.converter.Jackson2JsonMessageConverter.class
+     * Get instance to converter bytes received by rabbit server
+     * @return org.springframework.amqp.support.converter.SimpleMessageConverter
      */
     @Bean
     public MessageConverter converter() {
