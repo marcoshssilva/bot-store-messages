@@ -1,4 +1,4 @@
-package br.com.marcoshssilva.botstoremessages;
+package br.com.marcoshssilva.botstoremessages.db;
 
 import com.mongodb.BasicDBObjectBuilder;
 import com.mongodb.DBObject;
