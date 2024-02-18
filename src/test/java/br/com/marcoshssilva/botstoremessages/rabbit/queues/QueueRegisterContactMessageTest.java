@@ -4,6 +4,7 @@ import br.com.marcoshssilva.botstoremessages.domain.entities.ContactMessage;
 import br.com.marcoshssilva.botstoremessages.domain.entities.RegisteredQueueErrors;
 import br.com.marcoshssilva.botstoremessages.domain.repositories.ContactMessageRepository;
 import br.com.marcoshssilva.botstoremessages.domain.repositories.RegisteredQueueErrorsRepository;
+import br.com.marcoshssilva.botstoremessages.domain.services.exceptions.RegisterQueueErrorCannotBeCreatedException;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
@@ -23,6 +24,7 @@ import org.testcontainers.utility.DockerImageName;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 
@@ -33,7 +35,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class QueueRegisterContactMessageTest {
 
     @Container
-    static RabbitMQContainer container = new RabbitMQContainer(DockerImageName.parse("rabbitmq:3.7.25-management-alpine"));
+    static RabbitMQContainer container = new RabbitMQContainer(DockerImageName.parse("rabbitmq:3.7.25-management-alpine"))
+            .withStartupTimeout(Duration.ofMinutes(5L));
 
     @Autowired
     RabbitTemplate rabbitTemplate;
