@@ -20,7 +20,7 @@ class RegisteredQueueErrorNewTests {
         assertEquals(error1, error1);
         assertEquals(error1, error2);
         assertNotEquals(error1, error3);
-        assertNotEquals(error1, null);
+        assertNotEquals(null, error1);
         assertNotEquals(error2, error4);
 
         // Test hashCode method
