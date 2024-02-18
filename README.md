@@ -3,6 +3,7 @@
 Bot to listen RabbitMQ queue to store messages in Database
 
 ## GraalVM Native Support
+> (Not supported yet using Java 21)
 
 This project has been configured to let you generate either a lightweight container or a native executable.
 It is also possible to run your tests in a native image.
