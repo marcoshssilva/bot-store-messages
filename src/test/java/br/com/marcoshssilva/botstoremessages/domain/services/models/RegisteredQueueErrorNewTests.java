@@ -14,10 +14,14 @@ class RegisteredQueueErrorNewTests {
         RegisteredQueueErrorNew error1 = new RegisteredQueueErrorNew("Error 1", "data1".getBytes());
         RegisteredQueueErrorNew error2 = new RegisteredQueueErrorNew("Error 1", "data1".getBytes());
         RegisteredQueueErrorNew error3 = new RegisteredQueueErrorNew("Error 2", "data2".getBytes());
+        RegisteredQueueErrorNew error4 = new RegisteredQueueErrorNew("Error 2", "data1".getBytes());
 
         // Test equals method
+        assertEquals(error1, error1);
         assertEquals(error1, error2);
         assertNotEquals(error1, error3);
+        assertNotEquals(error1, null);
+        assertNotEquals(error2, error4);
 
         // Test hashCode method
         assertEquals(error1.hashCode(), error2.hashCode());
