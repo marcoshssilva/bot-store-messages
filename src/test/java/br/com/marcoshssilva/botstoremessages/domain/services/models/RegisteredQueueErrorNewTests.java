@@ -15,6 +15,7 @@ class RegisteredQueueErrorNewTests {
         RegisteredQueueErrorNew error2 = new RegisteredQueueErrorNew("Error 1", "data1".getBytes());
         RegisteredQueueErrorNew error3 = new RegisteredQueueErrorNew("Error 2", "data2".getBytes());
         RegisteredQueueErrorNew error4 = new RegisteredQueueErrorNew("Error 2", "data1".getBytes());
+        String otherClass = "Hello";
 
         // Test equals method
         assertEquals(error1, error1);
@@ -22,6 +23,7 @@ class RegisteredQueueErrorNewTests {
         assertNotEquals(error1, error3);
         assertNotEquals(null, error1);
         assertNotEquals(error2, error4);
+        assertNotEquals(error1, otherClass);
 
         // Test hashCode method
         assertEquals(error1.hashCode(), error2.hashCode());
