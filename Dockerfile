@@ -8,8 +8,6 @@ RUN adduser bot-store-messages
 
 USER bot-store-messages
 
-ENV JAVA_OPTS "-Xmx128m"
-ENV SPRING_DATA_MONGODB_URI "mongodb://admin:password@localhost:27017/baeldung"
 ENV PATH "/opt/java/openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 ENV JAVA_HOME "/opt/java/openjdk"
 ENV LC_ALL "en_US.UTF-8"
