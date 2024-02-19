@@ -1,0 +1,68 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: bot-store-messages
+  config:
+    import: optional:configserver:${SPRING_CONFIG_SERVER_URI:http://127.0.0.1:8888}
+  data:
+    mongodb:
+      authentication-database: ${SPRING_DATA_MONGODB_AUTHENTICATION_DATABASE:admin}
+      authentication-mechanism: ${SPRING_DATA_MONGODB_AUTHENTICATION_MECHANISM:SCRAM-SHA-1}
+#  profiles:
+#    active: localhost
+de.flapdoodle.mongodb.embedded.version: 4.0.2
+rabbit:
+  enabled: ${SPRING_RABBIT_ENABLED:true}
+  queues:
+    register-contact-message: ${SPRING_RABBIT_QUEUE_REGISTER_CONTACT_MESSAGE:notify.contact-me}
+eureka:
+  client:
+    service-url:
+      defaultZone: ${SPRING_EUREKA_SERVER_URI:http://127.0.0.1:8761/eureka}
+management:
+  server:
+    port: 18080
+  endpoints:
+    web:
+      exposure:
+        include:
+          - health
+          - metrics
+          - info
+  endpoint:
+    health:
+      group:
+        default:
+          show-components: always
+          show-details: always
+          include:
+            - diskSpace
+            - ping
+        database:
+          show-components: always
+          show-details: always
+          include:
+            - mongo
+        message-broker:
+          show-components: always
+          show-details: always
+          include:
+            - rabbit
+---
+spring:
+  config.activate.on-profile: localhost
+  data:
+    mongodb:
+      host: 127.0.0.1
+      username: 'root'
+      password: 'root'
+      database: 'db_messages'
+      authentication-database: 'admin'
+      authentication-mechanism: 'SCRAM-SHA-1'
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    virtual-host: /
+    username: guest
+    password: guest
