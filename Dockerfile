@@ -1,4 +1,4 @@
-FROM app-nx.marcoshssilva.com.br/eclipse-temurin:21-jre-jammy AS base
+FROM eclipse-temurin:21-jre-jammy AS base
 FROM base AS runner
 
 USER root
