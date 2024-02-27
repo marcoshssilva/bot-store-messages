@@ -1,9 +1,21 @@
-FROM eclipse-temurin:21-jre-jammy AS base
-FROM base AS runner
+FROM maven:3.9.5-eclipse-temurin-21 AS base-builder
+FROM base-builder AS build
+
+WORKDIR /build
+# install dependencies
+COPY pom.xml /build/pom.xml
+RUN mvn dependency:go-offline
+# copy source code
+COPY src /build/src
+# generate jar
+RUN mvn install -DskipTests
+
+FROM eclipse-temurin:21-jre-jammy AS base-runner
+FROM base-runner AS runner
 
 USER root
 WORKDIR /app
-COPY target/bot-store-messages-*.jar app.jar
+COPY --from=build /build/target/bot-store-messages-*.jar app.jar
 RUN adduser bot-store-messages
 
 USER bot-store-messages
