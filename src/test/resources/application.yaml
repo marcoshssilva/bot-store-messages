@@ -1,6 +1,0 @@
-spring:
-  data:
-    mongodb:
-      host: ${mongodb.container.host}
-      port: ${mongodb.container.port}
-      auto-index-creation: true
