@@ -4,7 +4,6 @@ import br.com.marcoshssilva.botstoremessages.domain.entities.ContactMessage;
 import br.com.marcoshssilva.botstoremessages.domain.entities.RegisteredQueueErrors;
 import br.com.marcoshssilva.botstoremessages.domain.repositories.ContactMessageRepository;
 import br.com.marcoshssilva.botstoremessages.domain.repositories.RegisteredQueueErrorsRepository;
-import br.com.marcoshssilva.botstoremessages.domain.services.exceptions.RegisterQueueErrorCannotBeCreatedException;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
@@ -17,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import org.testcontainers.containers.MongoDBContainer;
 import org.testcontainers.containers.RabbitMQContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -38,6 +38,9 @@ class QueueRegisterContactMessageTest {
     static RabbitMQContainer container = new RabbitMQContainer(DockerImageName.parse("rabbitmq:3.7.25-management-alpine"))
             .withStartupTimeout(Duration.ofMinutes(5L));
 
+    @Container
+    static MongoDBContainer mongoDBContainer = new MongoDBContainer(DockerImageName.parse("mongo:4.0.10"));
+
     @Autowired
     RabbitTemplate rabbitTemplate;
 
@@ -56,6 +59,7 @@ class QueueRegisterContactMessageTest {
         registry.add("spring.rabbitmq.password", container::getAdminPassword);
         registry.add("spring.rabbitmq.host", container::getHost);
         registry.add("spring.rabbitmq.port", container::getAmqpPort);
+        registry.add("spring.data.mongodb.uri", mongoDBContainer::getReplicaSetUrl);
     }
 
     @BeforeAll
