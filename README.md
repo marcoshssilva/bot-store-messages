@@ -2,36 +2,14 @@
 
 Bot to listen RabbitMQ queue to store messages in Database
 
-## GraalVM Native Support
-> (Not supported yet using Java 21)
+## SonarQube
 
-This project has been configured to let you generate either a lightweight container or a native executable.
-It is also possible to run your tests in a native image.
+[![Quality gate](https://dev-sonarqube.marcoshssilva.com.br/api/project_badges/quality_gate?project=bot-store-messages&token=sqb_2c32a85f69301ca61030b3d819d5ca718932e74b)](https://dev-sonarqube.marcoshssilva.com.br/dashboard?id=bot-store-messages)
 
-### Lightweight Container with Cloud Native Buildpacks
-If you're already familiar with Spring Boot container images support, this is the easiest way to get started.
-Docker should be installed and configured on your machine prior to creating the image.
+[![Quality Gate Status](https://dev-sonarqube.marcoshssilva.com.br/api/project_badges/measure?project=bot-store-messages&metric=alert_status&token=sqb_2c32a85f69301ca61030b3d819d5ca718932e74b)](https://dev-sonarqube.marcoshssilva.com.br/dashboard?id=bot-store-messages)
+[![Coverage](https://dev-sonarqube.marcoshssilva.com.br/api/project_badges/measure?project=bot-store-messages&metric=coverage&token=sqb_2c32a85f69301ca61030b3d819d5ca718932e74b)](https://dev-sonarqube.marcoshssilva.com.br/dashboard?id=bot-store-messages)
+[![Maintainability Rating](https://dev-sonarqube.marcoshssilva.com.br/api/project_badges/measure?project=bot-store-messages&metric=sqale_rating&token=sqb_2c32a85f69301ca61030b3d819d5ca718932e74b)](https://dev-sonarqube.marcoshssilva.com.br/dashboard?id=bot-store-messages)
+[![Quality Gate Status](https://dev-sonarqube.marcoshssilva.com.br/api/project_badges/measure?project=bot-store-messages&metric=alert_status&token=sqb_2c32a85f69301ca61030b3d819d5ca718932e74b)](https://dev-sonarqube.marcoshssilva.com.br/dashboard?id=bot-store-messages)
+[![Reliability Rating](https://dev-sonarqube.marcoshssilva.com.br/api/project_badges/measure?project=bot-store-messages&metric=reliability_rating&token=sqb_2c32a85f69301ca61030b3d819d5ca718932e74b)](https://dev-sonarqube.marcoshssilva.com.br/dashboard?id=bot-store-messages)
+[![Security Rating](https://dev-sonarqube.marcoshssilva.com.br/api/project_badges/measure?project=bot-store-messages&metric=security_rating&token=sqb_2c32a85f69301ca61030b3d819d5ca718932e74b)](https://dev-sonarqube.marcoshssilva.com.br/dashboard?id=bot-store-messages)
 
-To create the image, run the following goal:
-
-```
-$ ./mvnw spring-boot:build-image -Pnative
-```
-
-Then, you can run the app like any other container:
-
-```
-$ docker run --rm -p 8080:8080 bot-store-messages:0.0.1-SNAPSHOT
-```
-
-### Executable with Native Build Tools
-Use this option if you want to explore more options such as running your tests in a native image.
-The GraalVM `native-image` compiler should be installed and configured on your machine.
-
-NOTE: GraalVM 22.3+ is required.
-
-To create the executable, run the following goal:
-
-```
-$ ./mvnw native:compile -Pnative
-```
