@@ -82,14 +82,14 @@ class QueueRegisterContactMessageTest {
     @DisplayName("must send and receive messages from queue 'notify.contact-me' and process if error and if success")
     @Test
     void testOnReceiveMessage() throws InterruptedException {
+        // fix if exists another data
+        registeredQueueErrorsRepository.deleteAll();
+        contactMessageRepository.deleteAll();
+        // send queue messages
         rabbitTemplate.send("notify.contact-me", new Message("{ \"name\": \"John Doe\", \"mail\":\"john.doe@mail.com\", \"message\":\"Hello\"}".getBytes(StandardCharsets.UTF_8)));
         rabbitTemplate.send("notify.contact-me", new Message("{ \"name\": \"Mary Doe\", \"mail\":\"mary.doe@mail.com\", \"message\":\"Hello\"}".getBytes(StandardCharsets.UTF_8)));
         rabbitTemplate.send("notify.contact-me", new Message("{ \"name\": \"Kane Doe\", \"mail\":\"kane.doe@mail.com\", \"message\":\"Hello\"}".getBytes(StandardCharsets.UTF_8)));
         rabbitTemplate.send("notify.contact-me", new Message("Corrupted data".getBytes(StandardCharsets.UTF_8)));
-        // fix if exists another data
-        registeredQueueErrorsRepository.deleteAll();
-        contactMessageRepository.deleteAll();
-
         // sleep to await process queues
         Thread.sleep(3000);
 
