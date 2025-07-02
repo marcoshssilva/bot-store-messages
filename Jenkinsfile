@@ -1,2 +1,2 @@
 @Library('java@main') _
-pipelineUsingJava21AndMavenWithPublicDockerImage()
+pipelineUsingJava21AndMavenWithPublicDockerImage('bot-store-messages')
