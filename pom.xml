@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>br.com.marcoshssilva</groupId>
 	<artifactId>bot-store-messages</artifactId>
-	<version>1.0.2-RC-SNAPSHOT</version>
+	<version>1.0.2</version>
 	<name>bot-store-messages</name>
 	<description>Receive messages from rabbitmq queue and store all messages on mongodb</description>
 	<properties>
