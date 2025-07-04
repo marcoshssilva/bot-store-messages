@@ -1,2 +1,2 @@
-mvn clean install
-docker build -t bot-store-messages:latest .
+mvn clean package
+docker build --tag marcoshssilva/bot-store-messages:latest --file Dockerfile.jenkins .

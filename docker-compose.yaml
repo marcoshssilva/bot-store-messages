@@ -4,7 +4,7 @@ networks:
     driver: bridge
 services:
   bot-storemessages:
-    image: bot-store-messages:latest
+    image: marcoshssilva/bot-store-messages:latest
     ports:
       - "8080:8080"   # api
       - "18080:18080" # management
