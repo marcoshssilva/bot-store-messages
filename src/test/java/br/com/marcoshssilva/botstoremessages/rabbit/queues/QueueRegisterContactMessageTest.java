@@ -28,6 +28,9 @@ import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 
+import static org.awaitility.Awaitility.*;
+import static java.util.concurrent.TimeUnit.*;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Testcontainers
@@ -81,7 +84,7 @@ class QueueRegisterContactMessageTest {
 
     @DisplayName("must send and receive messages from queue 'notify.contact-me' and process if error and if success")
     @Test
-    void testOnReceiveMessage() throws InterruptedException {
+    void testOnReceiveMessage() {
         // fix if exists another data
         registeredQueueErrorsRepository.deleteAll();
         contactMessageRepository.deleteAll();
@@ -91,7 +94,7 @@ class QueueRegisterContactMessageTest {
         rabbitTemplate.send("notify.contact-me", new Message("{ \"name\": \"Kane Doe\", \"mail\":\"kane.doe@mail.com\", \"message\":\"Hello\"}".getBytes(StandardCharsets.UTF_8)));
         rabbitTemplate.send("notify.contact-me", new Message("Corrupted data".getBytes(StandardCharsets.UTF_8)));
         // sleep to await process queues
-        Thread.sleep(3000);
+        await().atMost(10, SECONDS).until(() -> registeredQueueErrorsRepository.count() > 0 && contactMessageRepository.count() > 0);
 
         // fetch data
         final List<RegisteredQueueErrors> registeredQueueErrorsRepositoryAll = registeredQueueErrorsRepository.findAll();
