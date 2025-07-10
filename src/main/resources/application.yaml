@@ -2,9 +2,9 @@ server:
   port: 8080
 spring:
   application:
-    name: bot-store-messages
+    name: ${APP_NAME:bot-storemessages}
   config:
-    import: optional:configserver:${SPRING_CONFIG_SERVER_URI:http://127.0.0.1:8888}
+    import: optional:configserver:${CONFIG_SERVER_URI:http://127.0.0.1:8888}
   data:
     mongodb:
       authentication-database: ${SPRING_DATA_MONGODB_AUTHENTICATION_DATABASE:admin}
@@ -12,13 +12,13 @@ spring:
 #  profiles:
 #    active: localhost
 rabbit:
-  enabled: ${SPRING_RABBIT_ENABLED:true}
+  enabled: ${RABBIT_ENABLED:true}
   queues:
-    register-contact-message: ${SPRING_RABBIT_QUEUE_REGISTER_CONTACT_MESSAGE:notify.contact-me}
+    register-contact-message: ${RABBIT_QUEUE_REGISTER_CONTACT_MESSAGE:notify.contact-me}
 eureka:
   client:
     service-url:
-      defaultZone: ${SPRING_EUREKA_SERVER_URI:http://127.0.0.1:8761/eureka}
+      defaultZone: ${EUREKA_SERVER_URI:http://127.0.0.1:8761/eureka}
 management:
   server:
     port: 18080
