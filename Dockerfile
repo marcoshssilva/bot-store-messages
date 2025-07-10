@@ -16,20 +16,23 @@ FROM base-runner AS runner
 USER root
 WORKDIR /app
 COPY --from=build /build/target/bot-store-messages-*.jar app.jar
-RUN adduser bot-store-messages
 
-USER bot-store-messages
+USER 1001
 
 ARG JAVA_VM_OPTIONS
+ARG MANAGEMENT_PORT
+ARG PORT
 
 ENV PATH="/opt/java/openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 ENV JAVA_HOME="/opt/java/openjdk"
 ENV JAVA_VM_OPTIONS="-XX:+UseContainerSupport -XX:MaxRAMPercentage=80"
-ENV LC_ALL="en_US.UTF-8"
-ENV LANG="en_US.UTF-8"
+ENV PORT="8080"
+ENV MANAGEMENT_PORT="8080"
 
 ENTRYPOINT ["bash", "-c"]
 CMD ["exec java $JAVA_VM_OPTIONS -jar /app/app.jar"]
 
+HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
+  CMD sh -c "wget --no-verbose --tries=1 --spider http://localhost:$MANAGEMENT_PORT/actuator/health || exit 1"
+
 EXPOSE 8080
-EXPOSE 18080
