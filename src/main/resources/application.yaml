@@ -27,6 +27,10 @@ management:
       exposure:
         include:
           - '*'
+    jmx:
+      exposure:
+        include:
+          - '*'
   endpoint:
     health:
       group:
