@@ -42,7 +42,7 @@ class QueueRegisterContactMessageTest {
             .withStartupTimeout(Duration.ofMinutes(5L));
 
     @Container
-    static MongoDBContainer mongoDBContainer = new MongoDBContainer(DockerImageName.parse("mongo:4.0.10"));
+    static MongoDBContainer mongoDBContainer = new MongoDBContainer(DockerImageName.parse("mongo:8.0"));
 
     @Autowired
     RabbitTemplate rabbitTemplate;
