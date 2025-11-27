@@ -1,4 +1,4 @@
 {
-    "sonarQubeUri": "https://devops-sonarqube.marcoshssilva.com.br",
-    "projectKey": "bot-store-messages"
+    "sonarQubeUri": "https://qsonar.starlord443.dev",
+    "projectKey": "marcoshssilva-bot-store-messages"
 }
