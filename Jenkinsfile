@@ -1,6 +1,6 @@
 @Library('java@main') _
-pipelineUsingJava21AndMavenWithPublicDockerImage('marcoshssilva/bot-store-messages',
+pipelineSimpleMavenJavaProject('marcoshssilva/bot-store-messages', 'jdk-21',
     [
-        'DOCKER_BUILDX_DOCKERFILE': 'Dockerfile.jenkins'
-    ]
-)
+    'ENABLE_SONARQUBE_CHECK': 'true',
+    'AGENT_EXTRA_LABELS': 'docker'
+    ])
